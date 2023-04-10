@@ -19,12 +19,22 @@ const socket = io('ws://localhost:3030');
 
 function App() {
 
+  const [account, setAccount] = useState(null)
+
+  const loadBlockchainData = async () => {
+    window.ethereum.on('accountsChanged', async () => {
+      window.location.reload()
+    })
+  }
+
+  useEffect(() => {
+    loadBlockchainData()
+  }, [])
+
   return (
     <div>
-      <Navigation />  
-
+      <Navigation account={account} setAccount={setAccount} />        
       <main>
-
       </main>
     </div>
   );
